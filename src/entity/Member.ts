@@ -9,8 +9,21 @@ export class Member {
     @PrimaryGeneratedColumn()
     userId: number;
 
+
+    // note its a string b/c google ids have values like '105768085330441011127'
+    // and it's, well, it's a string. not an integer.
+    @Column({ type: "text", unique: true, nullable: true })
+    // todo: remove 'nullable' by end of december
+    googleId?: string;
+
     @Column({ nullable: true })
     displayName?: string;
+
+    @Column({ unique: true })
+    email: string;
+
+    @Column()
+    role: Role;
 
     @ManyToMany(() => Task, (task: Task) => task.members, { nullable: true, onDelete: "CASCADE" })
     @JoinTable({ name: "tasks_for_member" })

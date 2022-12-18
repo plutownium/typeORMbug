@@ -10,6 +10,9 @@ export class Committee {
     @Column()
     title: string;
 
+    @Column()
+    description: string;
+
 
     @ManyToOne(() => Member, member => member.userId, { eager: true, nullable: true, onDelete: "CASCADE" })
     @JoinTable({ name: "head_of" })

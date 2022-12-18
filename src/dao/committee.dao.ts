@@ -13,6 +13,7 @@ class CommitteeDAO {
         try {
             const committee = new Committee();
             committee.title = title;
+            committee.description = "Hats";
             committee.head = head;
             await this.committeeRepository.save(committee);
             return committee;

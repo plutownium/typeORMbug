@@ -20,17 +20,23 @@ describe("task DAO", () => {
     test("create a task", async () => {
         // arrange
         const memberForTest1 = {
+            email: "foo1@gmail.com",
             displayName: "foo1",
+            fakeGoogleId: "foo1",
         };
         const memberForTest2 = {
+            email: "bar1@gmail.com",
             displayName: "bar1",
+            fakeGoogleId: "bar1",
         };
         const memberForTest3 = {
+            email: "baz1@gmail.com",
             displayName: "baz1",
+            fakeGoogleId: "baz1",
         };
-        const newUser1 = await memberDAO.createUser(memberForTest1.displayName, );
-        const newUser2 = await memberDAO.createUser( memberForTest2.displayName,);
-        const newUser3 = await memberDAO.createUser( memberForTest3.displayName,);
+        const newUser1 = await memberDAO.createUser(memberForTest1.fakeGoogleId, memberForTest1.displayName, memberForTest1.email);
+        const newUser2 = await memberDAO.createUser(memberForTest2.fakeGoogleId, memberForTest2.displayName, memberForTest2.email);
+        const newUser3 = await memberDAO.createUser(memberForTest3.fakeGoogleId, memberForTest3.displayName, memberForTest3.email);
         const committeePayload1 = {
             title: "Fooa Department",
             description: "Fooa Distribution Service",

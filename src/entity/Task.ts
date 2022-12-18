@@ -8,10 +8,22 @@ export class Task {
     @PrimaryGeneratedColumn()
     taskId: number;
 
-    @Column("text")
+
+    @Column()
     title: string;
 
+    @Column({ nullable: true })
+    description: string;
 
+    @Column({ nullable: true })
+    status: Role;
+
+    @Column()
+    startDate: Date;
+
+    @Column()
+    endDate: Date;
+    
     @ManyToMany(() => Member, (member: Member) => member.tasks, { nullable: true, onDelete: "CASCADE" })
     @JoinTable({ name: "task_leads" })
     leads?: Member[];

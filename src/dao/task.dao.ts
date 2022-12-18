@@ -26,6 +26,8 @@ class TaskDAO {
             const task = new Task();
             task.ownedBy = headCommittee;
             task.title = title;
+            task.startDate = new Date();
+            task.endDate = new Date();
             task.relatedCommittees = relatedCommittees;
             if (projectLead) {
                 task.leads = [projectLead];
