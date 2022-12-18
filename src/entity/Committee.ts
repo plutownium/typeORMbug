@@ -13,7 +13,6 @@ export class Committee {
     @Column()
     description: string;
 
-
     @ManyToOne(() => Member, member => member.userId, { eager: true, nullable: true, onDelete: "CASCADE" })
     @JoinTable({ name: "head_of" })
     head?: Member;
@@ -33,4 +32,10 @@ export class Committee {
     @ManyToMany(() => Task, task => task.relatedCommittees, { nullable: true, onDelete: "CASCADE" })
     // @JoinTable({ name: "committee_related_tasks" }) // I don't care what the docs say, you need @JoinTable on both sides.
     tasks?: Task[];
+
+    @CreateDateColumn({ name: "created_at" })
+    createdAt?: Date;
+
+    @UpdateDateColumn({ name: "updated_at" })
+    updatedAt?: Date;
 }

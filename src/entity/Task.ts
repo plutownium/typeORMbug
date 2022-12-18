@@ -1,13 +1,12 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
-import { Role } from "../enum/Role.enum";
-import { Member } from "./Member";
+import { Role } from "../../enum/Role.enum";
 import { Committee } from "./Committee";
+import { Member } from "./Member";
 
 @Entity()
 export class Task {
     @PrimaryGeneratedColumn()
     taskId: number;
-
 
     @Column()
     title: string;
@@ -23,7 +22,7 @@ export class Task {
 
     @Column()
     endDate: Date;
-    
+
     @ManyToMany(() => Member, (member: Member) => member.tasks, { nullable: true, onDelete: "CASCADE" })
     @JoinTable({ name: "task_leads" })
     leads?: Member[];
