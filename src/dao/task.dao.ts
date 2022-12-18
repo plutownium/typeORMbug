@@ -3,6 +3,7 @@ import { Task } from "../entity/Task";
 import { Member } from "../entity/Member";
 import MemberDAO from "./member.dao";
 import { TaskDetails } from "../interface/TaskDetails.interface";
+import { Committee } from "../entity/Committee";
 
 class TaskDAO {
     private taskRepository: Repository<Task>;
@@ -15,13 +16,17 @@ class TaskDAO {
     }
 
     public async createTask(
+        headCommittee: Committee,
         title: string,
+        relatedCommittees: Committee[],
         projectLead: Member | null,
         membersToAdd: Member[] | null,
     ): Promise<Task> {
         try {
             const task = new Task();
+            task.ownedBy = headCommittee;
             task.title = title;
+            task.relatedCommittees = relatedCommittees;
             if (projectLead) {
                 task.leads = [projectLead];
             }

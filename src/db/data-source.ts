@@ -5,6 +5,7 @@ dotenv.config();
 
 import { Task } from "../entity/Task";
 import { Member } from "../entity/Member";
+import { Committee } from "../entity/Committee";
 
 
 
@@ -23,6 +24,7 @@ export const AppDataSource = new DataSource({
     migrations: [],
 });
 
+export const committeeRepository = AppDataSource.getRepository(Committee);
 export const memberRepository = AppDataSource.getRepository(Member);
 export const taskRepository = AppDataSource.getRepository(Task);
 
