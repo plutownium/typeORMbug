@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
     database: "typeormtest",
     synchronize: true,
     logging: false,
-    entities: [Member, Task ],
+    entities: [Member, Task, Committee ],
     subscribers: [],
     migrations: [],
 });

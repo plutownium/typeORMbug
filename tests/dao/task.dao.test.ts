@@ -44,11 +44,7 @@ describe("task DAO", () => {
         const newCommittee1 = await committeeDAO.createCommittee(committeePayload1.title, newUser1);
         const newCommittee2 = await committeeDAO.createCommittee(committeePayload2.title, newUser2);
         // act
-        // const taskDetails: TaskDetails = {
-        //     title: "Baz Creation",
-        //     startDate: new Date(),
-        //     endDate: new Date(),
-        // };
+
         const taskTitle = "Duck Feeding Service"
         const taskPayload1 = {
             projectLead: newUser1,
