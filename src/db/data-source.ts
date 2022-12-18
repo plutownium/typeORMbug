@@ -3,9 +3,9 @@ import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-
 dotenv.config();
 //
 
-import { Task } from "../entity/Task";
-import { Member } from "../entity/Member";
-import { Committee } from "../entity/Committee";
+import { Task } from "./entity/Task";
+import { Member } from "./entity/Member";
+import { Committee } from "./entity/Committee";
 
 
 

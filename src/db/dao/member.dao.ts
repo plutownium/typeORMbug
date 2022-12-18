@@ -1,5 +1,5 @@
 import { In, Repository, DeleteResult } from "typeorm";
-import { Role } from "../enum/Role.enum";
+import { Role } from "../../enum/Role.enum";
 //
 import { Member } from "../entity/Member";
 
@@ -24,10 +24,21 @@ class MemberDAO {
         }
     }
 
+    public async getMemberByGoogleId(googleIdString: string): Promise<Member | null> {
+        return await this.memberRepository.findOne({ where: { googleId: googleIdString } });
+    }
+
+    public async getMemberByEmail(email: string): Promise<Member | null> {
+        return await this.memberRepository.findOne({ where: { email } });
+    }
 
     public async getAllUsers(): Promise<Member[]> {
         return await this.memberRepository.find({
-     
+            relations: {
+                headOf: true,
+                leadOf: true,
+                memberOf: true,
+            },
         });
     }
 
@@ -39,6 +50,11 @@ class MemberDAO {
         return await this.memberRepository.find({ where: { userId: In(userIds) } });
     }
 
+    public async updateRole(user: Member, newRole: Role) {
+        user.role = newRole;
+        await this.memberRepository.save(user);
+        return user;
+    }
 
     public async deleteMemberById(userId: number): Promise<DeleteResult> {
         return await this.memberRepository.delete(userId);

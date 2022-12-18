@@ -1,4 +1,4 @@
-import MemberDAO from "../../src/dao/member.dao";
+import MemberDAO from "../../src/db/dao/member.dao";
 import { memberRepository } from "../../src/db/data-source";
 
 import { app } from "../../src/server";

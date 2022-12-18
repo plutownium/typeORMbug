@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm";
-import { Role } from "../enum/Role.enum";
+import { Role } from "../../enum/Role.enum";
 import { Committee } from "./Committee";
 import { PasswordToken } from "./PasswordToken";
 import { RefreshToken } from "./RefreshToken";

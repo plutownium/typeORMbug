@@ -1,45 +1,52 @@
 import { Repository } from "typeorm";
+import { TaskDetails } from "../../interface/TaskDetails.interface";
+import { Committee } from "../entity/Committee";
 import { Task } from "../entity/Task";
 import { Member } from "../entity/Member";
+import { StandardErrors } from "../../enum/StandardErrors.enum";
 import MemberDAO from "./member.dao";
-import { TaskDetails } from "../interface/TaskDetails.interface";
-import { Committee } from "../entity/Committee";
 
 class TaskDAO {
     private taskRepository: Repository<Task>;
-    private memberDAO: MemberDAO;
-    private memberRepository: Repository<Member>;
     constructor(taskRepository: Repository<Task>, memberDAO: MemberDAO, memberRepository: Repository<Member>) {
         this.taskRepository = taskRepository;
-        this.memberDAO = memberDAO;
-        this.memberRepository = memberRepository;
     }
 
     public async createTask(
         headCommittee: Committee,
-        title: string,
-        relatedCommittees: Committee[],
+        taskDetails: TaskDetails,
+        relatedCommittees: Committee[] | null,
         projectLead: Member | null,
         membersToAdd: Member[] | null,
     ): Promise<Task> {
         try {
             const task = new Task();
+            task.title = taskDetails.title;
+            task.startDate = taskDetails.startDate;
+            task.endDate = taskDetails.endDate;
             task.ownedBy = headCommittee;
-            task.title = title;
-            task.startDate = new Date();
-            task.endDate = new Date();
-            task.relatedCommittees = relatedCommittees;
             if (projectLead) {
                 task.leads = [projectLead];
             }
             if (membersToAdd) {
                 task.members = [...membersToAdd];
             }
+            if (relatedCommittees) {
+                task.relatedCommittees = relatedCommittees;
+            }
             console.log(task, "36rm");
             await this.taskRepository.save(task);
             return task;
         } catch (error: unknown) {
-            
+            if (error instanceof Error && error.name === "QueryFailedError") {
+                // console.log(error);
+                if (error.message.includes("null value in column")) {
+                    console.log(headCommittee, taskDetails, relatedCommittees, projectLead, "had a null value");
+                }
+                if (error.message.includes("duplicate key")) {
+                    console.log(headCommittee, taskDetails, relatedCommittees, projectLead, "created a duplicate");
+                }
+            }
             throw error;
         }
     }
@@ -75,10 +82,10 @@ class TaskDAO {
     public async removeMemberFromTask(taskId: number, memberId: number): Promise<Task> {
         const task: Task | null = await this.taskRepository.findOne({ where: { taskId } });
         if (task === null) {
-            throw "Fail"
+            throw new Error(StandardErrors.noTaskForThisId);
         }
         if (task.members === null || task.members === undefined) {
-            throw "Fail"
+            throw new Error(StandardErrors.noMemberToRemove);
         }
         const currentUsers = task.members ? [...task.members] : [];
         const updated = currentUsers.filter(user => user.userId !== memberId);

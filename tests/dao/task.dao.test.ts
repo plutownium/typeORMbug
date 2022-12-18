@@ -1,9 +1,9 @@
 import { app } from "../../src/server";
-import MemberDAO from "../../src/dao/member.dao";
-import TaskDAO from "../../src/dao/task.dao";
+import MemberDAO from "../../src/db/dao/member.dao";
+import TaskDAO from "../../src/db/dao/task.dao";
 import {  committeeRepository, memberRepository, taskRepository } from "../../src/db/data-source";
 import { TaskDetails } from "../../src/interface/TaskDetails.interface";
-import CommitteeDAO from "../../src/dao/committee.dao";
+import CommitteeDAO from "../../src/db/dao/committee.dao";
 
 const memberDAO = new MemberDAO(memberRepository);
 const taskDAO = new TaskDAO(taskRepository, memberDAO, memberRepository);
@@ -47,8 +47,8 @@ describe("task DAO", () => {
             description: "Foob Distribution Service",
             headUserId: newUser2.userId,
         };
-        const newCommittee1 = await committeeDAO.createCommittee(committeePayload1.title, newUser1);
-        const newCommittee2 = await committeeDAO.createCommittee(committeePayload2.title, newUser2);
+        const newCommittee1 = await committeeDAO.createCommittee(committeePayload1.title, committeePayload1.description,newUser1);
+        const newCommittee2 = await committeeDAO.createCommittee(committeePayload2.title, committeePayload2.description,newUser2);
         // act
 
         const taskTitle = "Duck Feeding Service"
@@ -59,7 +59,7 @@ describe("task DAO", () => {
 
         const newTask = await taskDAO.createTask(
             newCommittee1,
-            taskTitle,
+            {title: "cats", startDate: new Date(),endDate: new Date(), committeeId: 5},
             [newCommittee2],
             taskPayload1.projectLead,
             taskPayload1.membersToAdd,
