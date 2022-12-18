@@ -1,12 +1,8 @@
 import express, { Application } from "express";
 import "reflect-metadata"; // needed for typeorm
 import { getConnection } from "typeorm";
-import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
-import cors from "cors";
 import { Request, Response, NextFunction } from "express";
-import session from "express-session";
-import passport from "passport";
 //
 //
 
@@ -18,11 +14,11 @@ import MemberDAO from "./db/dao/member.dao";
 // import PasswordTokenDAO from "./db/dao/passwordToken.dao";
 import RefreshTokenDAO from "./db/dao/refreshToken.dao";
 import TaskDAO from "./db/dao/task.dao";
-import {
-    committeeRepository,
-    taskRepository,
-    memberRepository,
-} from "./db/data-source";
+// import {
+//     committeeRepository,
+//     taskRepository,
+//     memberRepository,
+// } from "./db/data-source";
 import { AppDataSource } from "./db/data-source";
 
 import errorHandlerMiddleware from "./middleware/error.middleware";
@@ -99,9 +95,9 @@ class App {
 }
 
 // dao
-const committeeDAO = new CommitteeDAO(committeeRepository);
-const memberDAO = new MemberDAO(memberRepository);
-const taskDAO = new TaskDAO(taskRepository, memberDAO, memberRepository);
+// const committeeDAO = new CommitteeDAO(committeeRepository);
+// const memberDAO = new MemberDAO(memberRepository);
+// const taskDAO = new TaskDAO(taskRepository, memberDAO, memberRepository);
 // const passwordTokenDAO = new PasswordTokenDAO(passwordTokenRepository);
 
 

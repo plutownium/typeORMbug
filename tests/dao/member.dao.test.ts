@@ -1,10 +1,7 @@
 import MemberDAO from "../../src/db/dao/member.dao";
-import { memberRepository } from "../../src/db/data-source";
+import { memberDAO } from "../../src/db/daoInit";
 
 import { app } from "../../src/server";
-
-const memberDAO = new MemberDAO(memberRepository);
-
 
 const memberForTest1 = {
     email: "member11@gmail.com",

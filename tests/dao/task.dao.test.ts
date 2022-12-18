@@ -1,13 +1,15 @@
 import { app } from "../../src/server";
-import MemberDAO from "../../src/db/dao/member.dao";
-import TaskDAO from "../../src/db/dao/task.dao";
-import {  committeeRepository, memberRepository, taskRepository } from "../../src/db/data-source";
+// import MemberDAO from "../../src/db/dao/member.dao";
+// import TaskDAO from "../../src/db/dao/task.dao";
+import { taskDAO } from "../../src/db/daoInit";
+import { memberDAO, committeeDAO } from "../../src/db/daoInit";
+// import {  committeeRepository, memberRepository, taskRepository } from "../../src/db/data-source";
 import { TaskDetails } from "../../src/interface/TaskDetails.interface";
 import CommitteeDAO from "../../src/db/dao/committee.dao";
 
-const memberDAO = new MemberDAO(memberRepository);
-const taskDAO = new TaskDAO(taskRepository, memberDAO, memberRepository);
-const committeeDAO = new CommitteeDAO(committeeRepository)
+// const memberDAO = new MemberDAO(memberRepository);
+// const taskDAO = new TaskDAO(taskRepository, memberDAO, memberRepository);
+// const committeeDAO = new CommitteeDAO(committeeRepository)
 
 beforeAll(async () => {
     await app.authenticateDB();

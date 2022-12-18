@@ -24,9 +24,9 @@ export const AppDataSource = new DataSource({
     migrations: [],
 });
 
-export const committeeRepository = AppDataSource.getRepository(Committee);
-export const memberRepository = AppDataSource.getRepository(Member);
-export const taskRepository = AppDataSource.getRepository(Task);
+// export const committeeRepository = AppDataSource.getRepository(Committee);
+// export const memberRepository = AppDataSource.getRepository(Member);
+// export const taskRepository = AppDataSource.getRepository(Task);
 
 export const getDataSource = (delay = 3000): Promise<DataSource> => {
     if (AppDataSource.isInitialized) {
