@@ -9,13 +9,10 @@ class MemberDAO {
         this.memberRepository = memberRepository;
     }
 
-    public async createUser(googleIdString: string, displayName: string, email: string, specifiedRole?: Role): Promise<Member> {
+    public async createUser( displayName: string, ): Promise<Member> {
         try {
             const user = new Member();
-            user.googleId = googleIdString;
             user.displayName = displayName;
-            user.email = email;
-            user.role = specifiedRole ? specifiedRole : Role.NewUser;
             await this.memberRepository.save(user);
             return user;
         } catch (err) {
@@ -24,18 +21,11 @@ class MemberDAO {
         }
     }
 
-    public async getMemberByGoogleId(googleIdString: string): Promise<Member | null> {
-        return await this.memberRepository.findOne({ where: { googleId: googleIdString } });
-    }
 
-    public async getMemberByEmail(email: string): Promise<Member | null> {
-        return await this.memberRepository.findOne({ where: { email } });
-    }
 
     public async getAllUsers(): Promise<Member[]> {
         return await this.memberRepository.find({
-            relations: {
-            },
+     
         });
     }
 
@@ -47,11 +37,6 @@ class MemberDAO {
         return await this.memberRepository.find({ where: { userId: In(userIds) } });
     }
 
-    public async updateRole(user: Member, newRole: Role) {
-        user.role = newRole;
-        await this.memberRepository.save(user);
-        return user;
-    }
 
     public async deleteMemberById(userId: number): Promise<DeleteResult> {
         return await this.memberRepository.delete(userId);

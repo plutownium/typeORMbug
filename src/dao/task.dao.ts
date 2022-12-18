@@ -15,15 +15,13 @@ class TaskDAO {
     }
 
     public async createTask(
-        taskDetails: TaskDetails,
+        title: string,
         projectLead: Member | null,
         membersToAdd: Member[] | null,
     ): Promise<Task> {
         try {
             const task = new Task();
-            task.title = taskDetails.title;
-            task.startDate = taskDetails.startDate;
-            task.endDate = taskDetails.endDate;
+            task.title = title;
             if (projectLead) {
                 task.leads = [projectLead];
             }
