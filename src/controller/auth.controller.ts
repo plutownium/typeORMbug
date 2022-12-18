@@ -73,6 +73,7 @@ class AuthController {
         if (!enabledTests) {
             return handleErrorResponse(res, "Must enable tests for this endpoint");
         }
+            
         const { fakeGoogleId, displayName, email } = req.body;
         const account = await this.authService.emailSignup(fakeGoogleId, displayName, email);
         return handleResponse(res, account);

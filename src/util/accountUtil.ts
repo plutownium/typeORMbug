@@ -15,9 +15,7 @@ if (JWT_SECRET === "Failed to loda") {
 }
 
 class AccountUtil {
-    private refreshTokenDAO: RefreshTokenDAO;
-    constructor(refreshTokenDAO: RefreshTokenDAO) {
-        this.refreshTokenDAO = refreshTokenDAO;
+    constructor(refreshTokenDAO?: RefreshTokenDAO) {
     }
 
     public signJwt(user: Member | MemberDetails): string {
